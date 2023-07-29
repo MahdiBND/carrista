@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Carrista',
       theme: ThemeData(
-        colorScheme: const ColorScheme.dark(),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepOrange,
+          brightness: Brightness.dark,
+        ),
         useMaterial3: true,
+        splashFactory: NoSplash.splashFactory,
+        // fontFamily: Asset.iranSans,
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Carrista Home Page'),
@@ -32,45 +38,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF363642),
       body: Center(
-        child: Column(children: [
-          const Padding(padding: EdgeInsets.all(8.0), child: Text('Carrista')),
-          Container(
-            height: 350,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/img_car.jpeg"),
-                colorFilter: ColorFilter.mode(
-                    Color.fromARGB(255, 23, 30, 66), BlendMode.lighten),
-                fit: BoxFit.cover,
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(26.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Carrista',
+                    style: TextStyle(fontSize: 50),
+                  ),
+                  Text('Search and buy spare parts.'),
+                ],
               ),
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: OutlinedButton(
+            Container(
+              height: 350,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Asset.carImage),
+                  colorFilter: const ColorFilter.mode(
+                      Color.fromARGB(255, 23, 30, 66), BlendMode.lighten),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: OutlinedButton(
+                  onPressed: () => (),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    child: Text(
+                      'استعلام قیمت',
+                      textScaleFactor: 1.2,
+                    ),
+                  ),
+                )),
+            Text(
+              'یا',
+              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+            ),
+            TextButton(
                 onPressed: () => (),
-                child: const Text('استعلام'),
-              )),
-        ]),
+                child: const Text('مشاهده استعلام‌های قبلی'))
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
